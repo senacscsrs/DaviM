@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homenagem à Família</title>
+    
+    <style>
+        /* Configurações globais */
+        body {
+            /* Alterar cores de fundo e fonte (Requisito CSS) */
+            background-color: #f0f4f8;
+            color: #333;
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Classe 1: ".container"
+          Organiza o conteúdo e centraliza na página.
+        */
+        .container {
+            width: 90%;
+            max-width: 800px;
+            /* Centralizar elemento (Requisito CSS) */
+            margin: 20px auto; 
+            /* Espaçamentos (Requisito CSS) */
+            padding: 25px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        header {
+            /* Centralizar elemento (Requisito CSS) */
+            text-align: center;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            /* Definir tamanhos de texto (Requisito CSS) */
+            font-size: 40px; 
+            color: #2c3e50;
+        }
+
+        h2 {
+            font-size: 28px;
+            color: #16a085;
+        }
+
+        h3 {
+            font-size: 22px;
+            color: #2980b9;
+        }
+
+        p {
+            /* Definir tamanhos de texto (Requisito CSS) */
+            font-size: 16px;
+            margin-bottom: 15px; /* Espaçamentos (Requisito CSS) */
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+            /* Centralizar imagem */
+            display: block;
+            margin: 20px auto;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        ul li {
+            font-size: 18px;
+            margin-bottom: 8px;
+            color: #555;
+        }
+
+        /* Estilização dos botões */
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 18px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        /* Classe 2: ".mensagem-oculta"
+          Usada pelo JavaScript (IF/ELSE) para esconder/mostrar o elemento.
+        */
+        .mensagem-oculta {
+            display: none; /* Começa escondido */
+            background-color: #fffbe6;
+            border: 1px solid #ffe58f;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 15px;
+        }
+
+        /* Classe 3: ".caixa-interativa"
+          Usada pelo JavaScript (ONMOUSEOVER).
+        */
+        .caixa-interativa {
+            background-color: #ecf0f1;
+            border: 2px dashed #bdc3c7;
+            padding: 20px;
+            text-align: center;
+            font-weight: bold;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .botoes-switch button {
+            background-color: #9b59b6;
+        }
+        .botoes-switch button:hover {
+            background-color: #8e44ad;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <header>
+            <h1>Minha Família, Minha Base</h1>
+        </header>
+
+        <main>
+            <h2>Nossa História</h2>
+
+            <p>Construir uma família é uma jornada de amor, desafios e, acima de tudo, união. Cada dia é uma nova página que escrevemos juntos, com risadas, apoio mútuo e memórias que guardamos no coração.</p>
+
+            <img src="https://via.placeholder.com/600x300.png?text=Foto+de+Família+Feliz" alt="Ilustração de uma família feliz">
+
+            <p>Desde as pequenas conquistas diárias até os grandes eventos, o que realmente importa é ter com quem contar. Esta página é uma pequena celebração de tudo o que representamos uns para os outros.</p>
+
+            <p>Que possamos continuar crescendo e aprendendo juntos, valorizando cada instante.</p>
+
+            <h2>Membros da Família</h2>
+            <p>Esta lista é gerada automaticamente pelo JavaScript (usando um loop FOR):</p>
+            <ul id="lista-membros">
+                </ul>
+
+            <h2>Interações Especiais</h2>
+
+            <button id="btn-toggle">Mostrar/Esconder Mensagem Secreta</button>
+            <p id="mensagem-secreta" class="mensagem-oculta">
+                O verdadeiro tesouro da família é o amor incondicional. (Requisito IF/ELSE)
+            </p>
+
+            <h3>Mensagem por Familiar (Requisito SWITCH)</h3>
+            <div class="botoes-switch">
+                <button data-membro="mae">Para a Mãe</button>
+                <button data-membro="pai">Para o Pai</button>
+                <button data-membro="irmao">Para o Irmão</button>
+            </div>
+            <p id="area-mensagem-switch"></p>
+
+
+            <div id="caixa-hover" class="caixa-interativa">
+                Passe o mouse aqui para uma surpresa! (Requisito ONMOUSEOVER)
+            </div>
+
+            <h3>Momentos Especiais (Requisito VETOR)</h3>
+            <button id="btn-adicionar-momento">Revelar um Momento Especial</button>
+            <div id="novos-momentos">
+                </div>
+        </main>
+    </div>
+
+    <script>
+        // Espera o HTML carregar completamente antes de executar o script
+        document.addEventListener('DOMContentLoaded', function() {
+
+            // --- REQUISITOS DE DADOS (VETOR, MATRIZ, OBJETO) ---
+
+            // VETOR (Array) - Lista de nomes (Req. JS)
+            const nomesFamiliares = ["Ana (Mãe)", "Bruno (Pai)", "Carlos (Irmão)", "Eu"];
+
+            // VETOR (Array) - Lista de momentos especiais (Req. JS)
+            const momentosEspeciais = [
+                "Viagem para a praia em 2023",
+                "Jantar de Natal do ano passado",
+                "Adoção do nosso cachorro, Max"
+            ];
+
+            // MATRIZ - [nome, idade] (Req. JS)
+            const matrizFamilia = [
+                ["Ana", 45],
+                ["Bruno", 48],
+                ["Carlos", 20]
+            ];
+            // Exibindo a Matriz no console (como pedido)
+            console.log("--- Matriz (Nome, Idade) ---");
+            console.table(matrizFamilia);
+
+            // OBJETO - Membro da família (Req. JS)
+            const membroEspecial = {
+                nome: "Ana",
+                parentesco: "Mãe",
+                hobby: "Jardinagem",
+                descrever: function() {
+                    return `${this.nome} é a ${this.parentesco} e seu hobby é ${this.hobby}.`;
+                }
+            };
+            // Exibindo o Objeto no console
+            console.log("--- Objeto ---");
+            console.log(membroEspecial.descrever());
+
+
+            // --- REQUISITOS DE LOOPS (FOR, WHILE) ---
+
+            // FOR - Percorrer o vetor de nomes (Req. JS)
+            // DOM - Pegar elemento (Req. JS)
+            const listaHtml = document.getElementById('lista-membros');
+            
+            for (let i = 0; i < nomesFamiliares.length; i++) {
+                // DOM - Criar elementos novos (Req. JS)
+                const itemLista = document.createElement('li');
+                // DOM - Alterar texto (Req. JS)
+                itemLista.innerText = nomesFamiliares[i];
+                listaHtml.appendChild(itemLista);
+            }
+
+            // WHILE - Contador simples no console (Req. JS)
+            console.log("--- Loop WHILE (Fatos legais) ---");
+            let contadorFatos = 1;
+            while (contadorFatos <= 3) {
+                console.log(`Fato legal #${contadorFatos} sobre nossa família!`);
+                contadorFatos++; // Incrementa o contador para evitar loop infinito
+            }
+
+
+            // --- REQUISITOS DE INTERAÇÃO (EVENTOS, DOM, IF/ELSE, SWITCH) ---
+
+            // Pegando todos os elementos interativos
+            const btnToggle = document.getElementById('btn-toggle');
+            const mensagemSecreta = document.getElementById('mensagem-secreta');
+            const botoesSwitch = document.querySelectorAll('.botoes-switch button');
+            const areaMensagemSwitch = document.getElementById('area-mensagem-switch');
+            const caixaHover = document.getElementById('caixa-hover');
+            const btnAdicionarMomento = document.getElementById('btn-adicionar-momento');
+            const divNovosMomentos = document.getElementById('novos-momentos');
+
+            
+            // IF / ELSE - Botão de Mostrar/Esconder (Req. JS)
+            // EVENTO - onclick (Req. JS)
+            btnToggle.onclick = function() {
+                // Verifica se a mensagem está com 'display: none' ou não definida
+                if (mensagemSecreta.style.display === 'none' || mensagemSecreta.style.display === '') {
+                    // DOM - Alterar estilos (Req. JS)
+                    mensagemSecreta.style.display = 'block';
+                    btnToggle.innerText = 'Esconder Mensagem Secreta';
+                } else {
+                    mensagemSecreta.style.display = 'none';
+                    btnToggle.innerText = 'Mostrar Mensagem Secreta';
+                }
+            };
+
+
+            // SWITCH - Mensagens especiais (Req. JS)
+            // EVENTO - addEventListener (Req. JS)
+            botoesSwitch.forEach(botao => {
+                botao.addEventListener('click', function() {
+                    // Pega o valor do atributo 'data-membro' do botão clicado
+                    const membro = this.dataset.membro;
+                    let mensagem = '';
+
+                    switch (membro) {
+                        case 'mae':
+                            mensagem = 'Mãe: Obrigado por ser meu porto seguro. ❤️';
+                            break;
+                        case 'pai':
+                            mensagem = 'Pai: Obrigado por me ensinar a ser forte. 💪';
+                            break;
+                        case 'irmao':
+                            mensagem = 'Irmão: Obrigado pelas risadas e pela parceria. 😄';
+                            break;
+                        default:
+                            mensagem = 'Uma mensagem de carinho para toda a família!';
+                    }
+                    // DOM - Alterar HTML (Req. JS)
+                    areaMensagemSwitch.innerHTML = `<strong>${mensagem}</strong>`;
+                });
+            });
+
+
+            // EVENTO - onmouseover (Req. JS)
+            caixaHover.onmouseover = function() {
+                this.innerText = 'FAMÍLIA É TUDO!';
+                this.style.backgroundColor = '#16a085';
+                this.style.color = 'white';
+                this.style.borderColor = '#16a085';
+            };
+            // Evento onmouseout (para voltar ao normal)
+            caixaHover.onmouseout = function() {
+                this.innerText = 'Passe o mouse aqui para uma surpresa!';
+                this.style.backgroundColor = '#ecf0f1';
+                this.style.color = '#333';
+                this.style.borderColor = '#bdc3c7';
+            };
+
+
+            // DOM - Adicionando elementos do VETOR 'momentosEspeciais'
+            let indiceMomento = 0;
+            btnAdicionarMomento.addEventListener('click', function() {
+                if (indiceMomento < momentosEspeciais.length) {
+                    const novoMomento = document.createElement('p');
+                    novoMomento.innerText = `Lembrança: ${momentosEspeciais[indiceMomento]}`;
+                    divNovosMomentos.appendChild(novoMomento);
+                    indiceMomento++;
+                } else {
+                    // Desabilita o botão quando acabarem os momentos
+                    btnAdicionarMomento.innerText = 'Todas as lembranças foram mostradas!';
+                    btnAdicionarMomento.disabled = true;
+                }
+            });
+
+        }); // Fim do 'DOMContentLoaded'
+    </script>
+
+</body>
+</html>
