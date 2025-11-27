@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+     <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <main>
+        <h1>Calculadora de Média de Notas</h1>
+        <h2>Calculadora</h2>
+        <p>Coloque as notas nas caixas!</p>
+
+        <input type="number" id="N1" placeholder="Nota 1">
+        <input type="number" id="N2" placeholder="Nota 2">
+        <input type="number" id="N3" placeholder="Nota 3">
+        <button id="botao">Calcular Média</button>
+
+        <h3 id="Resultados"></h3>
+    </main>
+
+    <script>
+
+        document.getElementById("botao").addEventListener("click", Calcular);
+
+        function Calcular() {
+            const N1 = Number(document.getElementById("N1").value);
+            const N2 = Number(document.getElementById("N2").value);
+            const N3 = Number(document.getElementById("N3").value);
+            const media = (N1 + N2 + N3) / 3;
+            const r = document.getElementById("Resultados");
+
+            if (media >= 7) {
+                r.innerText = "Média: " + media + " | Aprovado!";
+            } else {
+                r.innerText = "Média: " + media + " | Reprovado!";
+            }
+        }
+
+    </script>
+
+</body>
+</html>
